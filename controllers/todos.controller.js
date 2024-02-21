@@ -79,4 +79,17 @@ async function deleteToDoList(req, res){
 }
 
 
-export {createToDo, updateToDoById, getAllToDoList, deleteToDoList}
+async function getTodoListById(req, res){
+    try {
+        const todoId = req?.params?.id
+        const todoList = await Todo.findByPk(todoId)
+        return res.status(200).json({ data: todoList, message: "deleted successfully"})
+    }catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+
+
+
+export {createToDo, updateToDoById, getAllToDoList, deleteToDoList, getTodoListById}

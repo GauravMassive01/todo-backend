@@ -51,4 +51,18 @@ async function getAllUser(req, res){
     }
 }
 
-export {createUser, updateUser, getAllUser}
+async function deleteUser(req, res){
+    const userId = req?.params?.id
+    try {
+        const deletedUser = await Todo.destroy({
+            where:{
+                id: userId
+            }
+        })
+        return res.status(200).json({ deletedUser: deletedUser, message: "deleted successfully"})
+    }catch (error) {
+        return res.status(500).json({ message: error.message })
+    }
+}
+
+export {createUser, updateUser, getAllUser, deleteUser}
